@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { FC, useState } from "react";
 
-export { Counter }
+type Props = {
+  count: number;
+};
 
-function Counter() {
-  const [count, setCount] = useState(0)
-  return (
-    <button type="button" onClick={() => setCount((count) => count + 1)}>
-      Counter {count}
-    </button>
-  )
-}
+const Counter: FC<Props> = (props) => {
+  const [count, setCount] = useState(props.count || 0);
+
+  return <button onClick={() => setCount((s) => ++s)}>{count}</button>;
+};
+
+export default Counter;
