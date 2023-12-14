@@ -12,5 +12,6 @@ const Clock = () => {
 
   return <div style={{ color: "#333" }}>{sec}s</div>;
 };
+Clock.displayName = "Clock";
 
 export default Clock;

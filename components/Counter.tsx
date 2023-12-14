@@ -9,5 +9,6 @@ const Counter: FC<Props> = (props) => {
 
   return <button onClick={() => setCount((s) => ++s)}>{count}</button>;
 };
+Counter.displayName = "Counter";
 
 export default Counter;
