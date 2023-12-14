@@ -41,3 +41,5 @@ export type IslandOptions<T extends ComponentType<any>> = {
 export type WithIslandOptions = {
   tag?: string;
 } & Strategy;
+
+export type StrategyContext<T = any> = { name: string; payload?: T };
