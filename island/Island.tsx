@@ -1,5 +1,5 @@
 import { ComponentType, createElement } from "react";
-import { IslandData, IslandOptions } from "./types";
+import { IslandOptions } from "./types";
 import { getComponentName } from "./utils";
 
 type Props<T extends ComponentType> = IslandOptions<T>;
@@ -8,9 +8,10 @@ function Island<T extends ComponentType<any>>(props: Props<T>) {
   const componentName = getComponentName(props.component);
   const data = props.loader?.({ name: componentName }) || {};
 
-  const islandData: IslandData<any> = {
-    media: "",
-    strategy: props.visible ? "viewport" : "load",
+  const islandData = {
+    media: props.media,
+    load: props.load,
+    visible: props.visible,
     componentName,
     props: data,
   };

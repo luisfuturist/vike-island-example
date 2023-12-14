@@ -1,17 +1,22 @@
-import { ComponentProps, ComponentType } from "react";
+import { ComponentProps, FC } from "react";
 import Island from "./Island";
-import { IslandOptions, IslandOptionsWithoutComponent } from "./types";
+import { ClientDirective, WithIslandOptions } from "./types";
 
-function withIsland<T extends ComponentType<any>>(
+function withIsland<T extends FC<any>>(
   component: T,
-  options?: IslandOptionsWithoutComponent
+  options?: WithIslandOptions
 ) {
-  return (props: ComponentProps<T>) => {
-    const islandProps = (options || {}) as IslandOptions<T>;
-    islandProps.loader ??= () => props;
-    islandProps.component = component;
-
-    return <Island {...islandProps} />;
+  return (props: ComponentProps<T> & ClientDirective) => {
+    return (
+      <Island
+        tag={options?.tag}
+        component={component}
+        loader={() => props}
+        visible={(props as any)["client:visible"]}
+        load={(props as any)["client:load"]}
+        media={(props as any)["client:media"]}
+      />
+    );
   };
 }
 

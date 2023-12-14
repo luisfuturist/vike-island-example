@@ -3,5 +3,6 @@ import { hydrate } from "../../island";
 console.log("hydrating islands");
 
 hydrate({
-  Counter: () => import("./Counter"),
+  Counter: () => import("../../components/Counter"),
+  Clock: () => import("../../components/Clock"),
 });

@@ -2,11 +2,13 @@ import { ComponentProps, ComponentType } from "react";
 import { IslandData } from "./types";
 
 export function getIslands(container: Element | Document) {
-  const islands = container.querySelectorAll("[data-island]")
+  const islands = container.querySelectorAll("[data-island]");
   return Array.from(islands);
 }
 
-export function getData(dataScript: Element | null): IslandData<any> {
+export function getData<T extends object = {}>(
+  dataScript: Element | null
+): IslandData<T> {
   return dataScript ? JSON.parse(dataScript.innerHTML) : {};
 }
 
@@ -18,14 +20,27 @@ export function getComponentName(
   return compName;
 }
 
-export function getProps<T extends object>(data: IslandData<T>) {
+export function getProps<T extends object = {}>(data: IslandData<T>) {
   return data.props || {};
 }
 
-export function observeOnce(
-  element: Element,
-  fn: () => void
-) {
+export function getStrategy<T extends object = {}>(data: IslandData<T>) {
+  if (data.media) {
+    return { name: "media", payload: data.media };
+  }
+
+  if (data.load) {
+    return { name: "load" };
+  }
+
+  if (data.visible) {
+    return { name: "visible" };
+  }
+
+  return { name: "none" };
+}
+
+export function observeOnce(element: Element, fn: () => void) {
   const options = {
     root: null,
     rootMargin: "0px",
@@ -46,4 +61,19 @@ export function observeOnce(
   if (element) {
     observer.observe(element);
   }
+}
+
+export function listenMediaOnce(query: string, fn: () => void) {
+  const mediaQuery = window.matchMedia(query);
+
+  const queryHandler = (event: MediaQueryList | MediaQueryListEvent) => {
+    if (event.matches) {
+      mediaQuery.removeEventListener("change", queryHandler);
+      fn();
+    }
+  };
+
+  queryHandler(mediaQuery);
+
+  mediaQuery.addEventListener("change", queryHandler);
 }

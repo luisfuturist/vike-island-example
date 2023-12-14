@@ -1,22 +1,33 @@
 export type ReactFactory = () => Promise<{ default: React.ComponentType<any> }>;
 
-export type Not<T> = {
-  [P in keyof T]?: void | false;
+export type Visible = { visible: true; load?: false; media?: false };
+export type Load = { load?: true; visible?: false; media?: false };
+export type Media = { media: string; visible?: false; load?: false };
+
+export type Strategy = Visible | Load | Media;
+
+export type ClientVisible = {
+  "client:visible": true;
+  "client:load"?: false;
+  "client:media"?: false;
+};
+export type ClientLoad = {
+  "client:load"?: true;
+  "client:visible"?: false;
+  "client:media"?: false;
+};
+export type ClientMedia = {
+  "client:media": string;
+  "client:visible"?: false;
+  "client:load"?: false;
 };
 
-export type Visible = { visible: true };
-export type Load = { load: true };
-
-export type StrategyProps = (Visible & Not<Load>) | (Load & Not<Visible>);
-
-export type IslandStrategy = "load" | "viewport";
+export type ClientDirective = ClientVisible | ClientLoad | ClientMedia;
 
 export type IslandData<T extends object> = {
-  media?: string;
-  strategy: IslandStrategy;
   componentName: string;
   props: T;
-};
+} & Strategy;
 
 export type IslandLoader<T extends ComponentType<any>> =
   () => ComponentProps<T>;
@@ -25,9 +36,8 @@ export type IslandOptions<T extends ComponentType<any>> = {
   component: T;
   loader?: IslandLoader;
   tag?: string;
-} & StrategyProps;
+} & Strategy;
 
-export type IslandOptionsWithoutComponent = {
-  loader?: IslandLoader;
+export type WithIslandOptions = {
   tag?: string;
-} & StrategyProps;
+} & Strategy;
