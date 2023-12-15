@@ -10,7 +10,11 @@ const Clock = () => {
     return () => clearInterval(interval);
   }, []);
 
-  return <div style={{ color: "#333" }}>{sec}s</div>;
+  return (
+    <div style={{ color: "#333" }}>
+      <span>{sec}s</span>
+    </div>
+  );
 };
 Clock.displayName = "Clock";
 

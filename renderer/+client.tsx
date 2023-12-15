@@ -1,8 +1,6 @@
-import { hydrate } from "../island";
+import { hydrate } from "../island/core";
+import factories from "./factories";
 
 console.log("hydrating islands");
 
-hydrate({
-  Counter: () => import("../components/Counter"),
-  Clock: () => import("../components/Clock"),
-});
+hydrate(factories);

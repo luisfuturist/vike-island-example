@@ -1,24 +1,22 @@
 // https://vike.dev/onRenderHtml
 export { onRenderHtml }
 
-import ReactDOMServer from 'react-dom/server'
-import { PageShell } from './PageShell'
-import { escapeInject, dangerouslySkipEscape } from 'vike/server'
-import logoUrl from './logo.svg'
+import { dangerouslySkipEscape, escapeInject } from 'vike/server'
 import type { OnRenderHtmlAsync } from 'vike/types'
+import renderIslandsToString from "../island/core/renderIslandsToString"
+import agnosticRenderPageToString from './agnosticRenderPageToString'
+import factories from './factories'
+import logoUrl from './logo.svg'
+
+// This onRenderHtml() hook only supports SSR, see https://vike.dev/render-modes for how to modify
+// onRenderHtml() to support SPA
 
 const onRenderHtml: OnRenderHtmlAsync = async (pageContext): ReturnType<OnRenderHtmlAsync> => {
-  const { Page, pageProps } = pageContext
-  // This onRenderHtml() hook only supports SSR, see https://vike.dev/render-modes for how to modify
-  // onRenderHtml() to support SPA
-  if (!Page) throw new Error('My render() hook expects pageContext.Page to be defined')
-  const pageHtml = ReactDOMServer.renderToString(
-    <PageShell pageContext={pageContext}>
-      <Page {...pageProps} />
-    </PageShell>
-  )
+  if (!factories) throw new Error('My render() hook expects pageContext.factories to be defined');
 
-  // See https://vike.dev/head
+  let pageHtml = await agnosticRenderPageToString(pageContext);
+  pageHtml = await renderIslandsToString(pageHtml, factories);
+
   const { documentProps } = pageContext.exports
   const title = (documentProps && documentProps.title) || 'Vite SSR app'
   const desc = (documentProps && documentProps.description) || 'App using Vite + Vike'

@@ -1,12 +1,10 @@
+import { hydrateIsland } from "./hydrateIsland";
 import showHydrationWarnings from "./showHydrationWarnings";
-import { ReactFactory } from "./types";
-import {
-  getIslands,
-  hydrateOne
-} from "./utils";
+import { Factory } from "./types";
+import { getIslands } from "./utils";
 
 async function hydrate(
-  factories: Record<string, ReactFactory>,
+  factories: Record<string, Factory>,
   container: Element | Document = document
 ) {
   const islands = getIslands(container);
@@ -16,7 +14,7 @@ async function hydrate(
   }
 
   for (let island of islands) {
-    hydrateOne(island, factories);
+    hydrateIsland(island, factories);
   }
 }
 

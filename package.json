@@ -27,16 +27,23 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "express": "^4.18.2",
+    "jsdom": "^23.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sirv": "^2.0.3",
     "ts-node": "^10.9.1",
     "typescript": "^5.3.3",
     "vike": "^0.4.150",
-    "vite": "^4.5.1"
+    "vite": "^4.5.1",
+    "vue": "^3.3.11"
   },
   "type": "module",
   "devDependencies": {
+    "@types/jsdom": "^21.1.6",
+    "@vitejs/plugin-vue": "^4.5.2",
     "wrangler": "^3.20.0"
+  },
+  "imports": {
+    "~/*": "./*"
   }
 }

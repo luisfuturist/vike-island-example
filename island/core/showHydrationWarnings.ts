@@ -1,9 +1,9 @@
-import { ReactFactory } from "./types";
+import { Factory } from "./types";
 import { getData } from "./utils";
 
 function showHydrationWarnings(
   islands: Element[],
-  factories: Record<string, ReactFactory>
+  factories: Record<string, Factory>
 ) {
   const factoriesNum: number = Object.keys(factories).length;
   const markersNum: number = islands.length;
@@ -48,7 +48,7 @@ export default showHydrationWarnings;
 
 function getFactoriesMissing(
   islands: Element[],
-  factories: Record<string, ReactFactory>
+  factories: Record<string, Factory>
 ) {
   const factoriesMissing: string[] = [];
 
@@ -67,7 +67,7 @@ function getFactoriesMissing(
 
 function getUnmarkedFactories(
   islands: Element[],
-  factories: Record<string, ReactFactory>
+  factories: Record<string, Factory>
 ) {
   const unmarkedComponentNames: string[] = [];
 

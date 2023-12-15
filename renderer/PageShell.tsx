@@ -15,10 +15,10 @@ function PageShell({ children, pageContext }: { children: React.ReactNode; pageC
           <Sidebar>
             <Logo />
             <Link className="navitem" href="/">
-              Home
+              React Page (index)
             </Link>
-            <Link className="navitem" href="/about">
-              About
+            <Link className="navitem" href="/vue">
+              Vue Page
             </Link>
           </Sidebar>
           <Content>{children}</Content>
