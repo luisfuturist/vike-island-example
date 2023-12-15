@@ -10,7 +10,7 @@ const incrementCount = () => {
   count.value++;
 };
 const decrementCount = () => {
-  count.value++;
+  count.value--;
 };
 </script>
 
