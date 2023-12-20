@@ -3,14 +3,13 @@ export function listenMediaOnce(query: string, fn: () => void) {
 
   const queryHandler = (event: MediaQueryList | MediaQueryListEvent) => {
     if (event.matches) {
-      mediaQuery.removeEventListener("change", queryHandler);
       fn();
     }
   };
 
   queryHandler(mediaQuery);
 
-  mediaQuery.addEventListener("change", queryHandler);
+  mediaQuery.addEventListener("change", queryHandler, { once: true });
 }
 
 export function observeOnce(element: Element, fn: () => void) {
