@@ -1,24 +1,36 @@
-<script setup async lang="ts">
-import VGreenCounter from "../../components/VGreenCounter.vue";
-import { island } from "../../island/vue";
-import RClock from "../../components/Clock.react";
+<script setup lang="ts">
+import VGreenCounter from "~/components/VGreenCounter.vue";
+import { withHydration } from "~/island/vue";
+import RClock from "~/components/Clock.react";
 
-const GreenCounter = island(VGreenCounter);
-const Clock = island(RClock);
+const GreenCounter = withHydration(VGreenCounter);
+const Clock = withHydration(RClock);
 </script>
-
 <template>
-  <div style="padding: 2em; padding-bottom: 20em;">
-    <h1>Vue Page</h1>
+  <div>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">Access react page</a></li>
+        </ul>
+      </nav>
+    </header>
 
-    <p>We are not using Layout here, but it's possible!</p>
+    <main>
+      <h1>Vue page</h1>
+      
+      <h2>Component hydrated only on mobile</h2>
+      <Clock client:media="(max-width: 576px)" />
 
-    <GreenCounter :count="10" />
+      <h2>Vue component hydrated on load</h2>
+      <GreenCounter :count="10" client:load />
 
-    <div style="margin-bottom: 1000px" />
+      <div style="margin-bottom: 1000px" />
 
-    <h2>Hydrated on Scroll</h2>
-    <small>React component Hydrated on Scroll inside a +Page.vue</small>
-    <Clock client:visible />
+      <h2>Hydrated on scroll</h2>
+      
+      <Clock client:visible />
+      <small>React component hydrated on scroll inside a +Page.vue</small>
+    </main>
   </div>
 </template>

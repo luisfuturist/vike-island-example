@@ -1,3 +1,5 @@
+import { Factory } from "~/island/core/types";
+
 declare global {
   namespace Vike {
     interface PageContext {
@@ -10,6 +12,10 @@ declare global {
           description?: string;
         };
       };
+      config: Config;
+    }
+    interface Config {
+      factories?: Record<string, Factory>
     }
   }
 }

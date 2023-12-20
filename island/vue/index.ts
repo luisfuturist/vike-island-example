@@ -1,2 +1,1 @@
-export { default as island } from "./island";
-export { default as Island } from "./Island";
+export { default as withHydration } from "./withHydration";

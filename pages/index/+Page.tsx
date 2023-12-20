@@ -1,39 +1,44 @@
-import ClockComponent from "~/components/Clock.react";
-import RCounter from "~/components/Counter.react";
-import VGreenCounter from "~/components/VGreenCounter.vue";
-import { withIsland } from "~/island/react";
+import ClockReact from "~/components/Clock.react";
+import CounterReact from "~/components/Counter.react";
+import Section from "~/components/Section.react";
+import VGreenCounterVue from "~/components/VGreenCounter.vue";
+import { withHydration } from "~/island/react";
 
-const Counter = withIsland(RCounter);
-const Clock = withIsland(ClockComponent);
-const GreenCounter = withIsland(VGreenCounter);
-
-export const documentProps = {
-  title: "React Page"
-}
+const Counter = withHydration(CounterReact);
+const Clock = withHydration(ClockReact);
+const GreenCounter = withHydration(VGreenCounterVue);
 
 export default () => {
   return (
     <div>
-      <h2>Not Hydrated</h2>
-      <RCounter count={0} />
+      <header>
+        <nav>
+          <ul>
+            <li>
+              <a href="/vue">Access vue page</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
 
-      <h2>Hydrated only on mobile</h2>
-      <Clock client:media="(max-width: 576px)" />
+      <main>
+        <h1>React page</h1>
 
-      <h2>Hydrated on Load</h2>
-      <Counter client:load count={4} />
+        <h2>Not Hydrated</h2>
+        <Counter count={0} />
 
-      <div style={{ marginBottom: "1000px" }}></div>
+        <Section client:load />
 
-      <h2>React Hydrated on Scroll</h2>
-      <Clock client:visible />
+        <div style={{ marginBottom: "1000px" }}></div>
 
-      <div style={{ marginBottom: "1000px" }}></div>
+        <h2>React component hydrated on scroll</h2>
+        <Clock client:visible />
 
-      <h2>Vue Hydrated on Scroll</h2>
+        <div style={{ marginBottom: "1000px" }}></div>
 
-      <GreenCounter count={1} client:visible />
+        <h2>Vue component hydrated on scroll inside a React page</h2>
+        <GreenCounter count={1} client:visible />
+      </main>
     </div>
   );
 };
-

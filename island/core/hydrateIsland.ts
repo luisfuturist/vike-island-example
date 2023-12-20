@@ -1,49 +1,66 @@
-import { hydrateFrameworkComponent } from "./component/agnosticHydrate";
-import { getProps } from "./component/utils";
-import { listenMediaOnce } from "./strategy/listenToMediaOnce";
-import { observeOnce } from "./strategy/observeOnce";
-import { getStrategy } from "./strategy/utils";
-import { Factory } from "./types";
-import { getData } from "./utils";
+import integrations from "./integrations";
+import { listenMediaOnce, observeOnce } from "./strategies";
+import { Factory, onHydrationEnd } from "./types";
+import {
+  getComponent,
+  parseHydrationData,
+  getProps,
+  getStrategy,
+  identifyIntegration,
+} from "./utils";
 
 export async function hydrateIsland(
   island: Element,
-  factories: Record<string, Factory>
+  factories: Record<string, Factory>,
+  onHydrationEnd?: onHydrationEnd
 ) {
-  const data = getData(island.querySelector("script"));
+  const data = parseHydrationData(island.querySelector("script")?.innerHTML);
 
   const strategy = getStrategy(data);
   if (!strategy) return;
 
   const factory = factories[data.componentName];
-  if (typeof factory !== "function") return;
+  if (!factory) return;
 
   const hydrate = async () => {
-    const Component = (await factory()).default;
-    if (!Component) return;
+    let component = await getComponent(factory);
+    if (!component) return;
 
     const props = getProps(data);
-    hydrateFrameworkComponent(island, Component, props);
+
+    const integration = identifyIntegration(component, integrations);
+    const hydrate = integration?.hydrate;
+
+    if (!hydrate) {
+      throw new Error("No hydrate or framework provided for the component.");
+    }
+
+    await hydrate(component, props, island);
+
+    onHydrationEnd?.({
+      componentName: integration.getComponentName(component),
+      props,
+      framework: integration.name,
+      strategy,
+    });
   };
 
   const handlers: any = {
     load: async () => {
       await hydrate();
-      console.log("hydrated ", data.componentName);
     },
     visible: () => {
       observeOnce(island, async () => {
         await hydrate();
-        console.log("observed and hydrated", data.componentName);
       });
     },
     media: async (payload: string) => {
       listenMediaOnce(payload, async () => {
         await hydrate();
-        console.log(`${payload} matches and hydrated`, data.componentName);
       });
     },
   };
+
   const handler = handlers[strategy.name];
   await handler?.(strategy?.payload);
 }

@@ -1,5 +1,5 @@
 main="./worker/index.js"
-name = "vike-react-island-demo"
+name = "vike-island-demo"
 compatibility_flags = ["streams_enable_constructors"]
 compatibility_date = "2021-09-29"
 workers_dev = true

@@ -3,7 +3,6 @@ import logo from './logo.svg'
 import { PageContextProvider } from './usePageContext'
 import type { PageContext } from 'vike/types'
 import './PageShell.css'
-import { Link } from './Link'
 
 export { PageShell }
 
@@ -14,12 +13,12 @@ function PageShell({ children, pageContext }: { children: React.ReactNode; pageC
         <Layout>
           <Sidebar>
             <Logo />
-            <Link className="navitem" href="/">
+            <a className="navitem" href="/">
               React Page (index)
-            </Link>
-            <Link className="navitem" href="/vue">
+            </a>
+            <a className="navitem" href="/vue">
               Vue Page
-            </Link>
+            </a>
           </Sidebar>
           <Content>{children}</Content>
         </Layout>

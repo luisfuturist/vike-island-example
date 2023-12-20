@@ -1,5 +1,5 @@
 import { Factory } from "./types";
-import { getData } from "./utils";
+import { parseHydrationData } from "./utils";
 
 function showHydrationWarnings(
   islands: Element[],
@@ -13,23 +13,23 @@ function showHydrationWarnings(
   const hasUnmarkedComponents = !!unmarkedComponentNames.length;
   const hasComps = !!factoriesNum;
   const hasMarkers = !!markersNum;
-  const warn = (msg: string) => console.warn("[vike-react-island]", msg);
+  const warn = (msg: string) => console.warn("[vike-island]", msg);
 
   if (hasMarkers && !hasComps) {
     warn(
-      `You used withIsland ${markersNum} time(s) but did not provide any factories. Therefore no island will be hydrated`
+      `You used withHydration ${markersNum} time(s) but did not provide any factories. Therefore no island will be hydrated`
     );
   }
 
   if (hasComps && !hasMarkers) {
     warn(
-      `You provided ${factoriesNum} factory(s) to hydrate but did not use withIsland on your components. Therefore no islands will be hydrated`
+      `You provided ${factoriesNum} factory(s) to hydrate but did not use withHydration on your components. Therefore no islands will be hydrated`
     );
   }
 
   if (hasMissingComponents) {
     warn(
-      `You are using withIsland with ${missingComponentNames.join(
+      `You are using withHydration with ${missingComponentNames.join(
         ", "
       )}, but did not provide the respective factory(s) in your call of \`hydrate()\``
     );
@@ -55,7 +55,7 @@ function getFactoriesMissing(
   const existingFactoryKeys = Object.keys(factories);
 
   for (let island of islands) {
-    const data = getData(island.querySelector("script"));
+    const data = parseHydrationData(island.querySelector("script")?.innerHTML);
 
     if (!existingFactoryKeys.includes(data.componentName)) {
       factoriesMissing.push(data.componentName);
@@ -74,7 +74,7 @@ function getUnmarkedFactories(
   const markedFactories = [];
 
   for (let island of islands) {
-    const data = getData(island.querySelector("script"));
+    const data = parseHydrationData(island.querySelector("script")?.innerHTML);
 
     markedFactories.push(data.componentName);
   }
