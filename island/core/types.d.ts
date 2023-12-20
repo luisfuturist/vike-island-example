@@ -32,19 +32,39 @@ export type ClientVisible = {
   "client:visible": true;
   "client:load"?: false;
   "client:media"?: false;
+  "client:idle"?: false;
+  "client:none"?: false;
 };
 export type ClientLoad = {
-  "client:load"?: true;
+  "client:load": true;
   "client:visible"?: false;
   "client:media"?: false;
+  "client:idle"?: false;
+  "client:none"?: false;
 };
 export type ClientMedia = {
   "client:media": string;
   "client:visible"?: false;
   "client:load"?: false;
+  "client:idle"?: false;
+  "client:none"?: false;
 };
+export type ClientIdle = {
+  "client:idle": true;
+  "client:media"?: false;
+  "client:visible"?: false;
+  "client:load"?: false;
+  "client:none"?: false;
+};
+export type ClientNone = {
+  "client:none"?: true;
+  "client:idle"?: false;
+  "client:media"?: false;
+  "client:visible"?: false;
+  "client:load"?: false;
+}
 
-export type ClientDirective = ClientVisible | ClientLoad | ClientMedia;
+export type ClientDirective = ClientVisible | ClientLoad | ClientMedia | ClientIdle | ClientNone;
 
 export type Integration = {
   name: string;

@@ -1,5 +1,5 @@
 import integrations from "./integrations";
-import { listenMediaOnce, observeOnce } from "./strategies";
+import { idle, listenMediaOnce, observeOnce } from "./strategies";
 import { Factory, onHydrationEnd } from "./types";
 import {
   getComponent,
@@ -59,6 +59,9 @@ export async function hydrateIsland(
         await hydrate();
       });
     },
+    idle: async () => {
+      idle(async () => await hydrate());
+    }
   };
 
   const handler = handlers[strategy.name];

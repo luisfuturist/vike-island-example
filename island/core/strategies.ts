@@ -35,3 +35,11 @@ export function observeOnce(element: Element, fn: () => void) {
     observer.observe(element);
   }
 }
+
+export function idle(fn: () => void) {
+  if ("requestIdleCallback" in window) {
+    (window as any).requestIdleCallback(fn);
+  } else {
+    setTimeout(fn, 200);
+  }
+}

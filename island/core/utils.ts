@@ -68,7 +68,7 @@ export function identifyIntegration(
 export function getPropsWithoutDirectives(props: Props) {
   const propsWithoutDirectives: Props = { ...props };
 
-  const directives = ["load", "visible", "media", "none"];
+  const directives = ["load", "visible", "media", "idle", "none"];
   directives.forEach(
     (directive) => void delete propsWithoutDirectives["client:" + directive]
   );
@@ -87,6 +87,9 @@ export function getStrategyFromProps(props: Props | ClientDirective) {
   }
   if (props["client:media"]) {
     strategy = { name: "media", payload: props["client:media"] as string };
+  }
+  if (props["client:idle"]) {
+    strategy = "idle";
   }
 
   return strategy;
