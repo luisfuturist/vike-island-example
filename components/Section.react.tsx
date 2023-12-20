@@ -1,5 +1,5 @@
 import { withHydration } from "~/island/react";
-import Counter from "./Counter.react";
+import Counter from "./Counter";
 
 function Section() {
   return (

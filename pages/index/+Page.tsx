@@ -1,5 +1,5 @@
-import ClockReact from "~/components/Clock.react";
-import CounterReact from "~/components/Counter.react";
+import ClockReact from "~/components/Clock";
+import CounterReact from "~/components/Counter";
 import Section from "~/components/Section.react";
 import VGreenCounterVue from "~/components/VGreenCounter.vue";
 import { withHydration } from "~/island/react";
@@ -27,7 +27,9 @@ export default () => {
         <h2>Not Hydrated</h2>
         <Counter count={0} />
 
-        <Section client:load />
+        <Counter count={0} client:load />
+
+        <Section client:media="(max-width: 576px)" />
 
         <div style={{ marginBottom: "1000px" }}></div>
 

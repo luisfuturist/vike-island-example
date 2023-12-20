@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import VGreenCounter from "~/components/VGreenCounter.vue";
 import { withHydration } from "~/island/vue";
-import RClock from "~/components/Clock.react";
+import RClock from "~/components/Clock";
 
 const GreenCounter = withHydration(VGreenCounter);
 const Clock = withHydration(RClock);

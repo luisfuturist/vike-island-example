@@ -101,16 +101,16 @@ export async function getComponent(factory: any) {
 
   if (typeof factory === "string") {
     Component = (await import(/* @vite-ignore */ factory)).default;
-
-    const isWrappedWithHoc =
-      typeof Component === "function" && Component.__island;
-
-    if (isWrappedWithHoc) Component = Component.component;
   }
-
+  
   if (typeof factory === "function") {
     Component = (await factory()).default;
   }
+
+  const isWrappedWithHoc =
+    typeof Component === "function" && Component.__island;
+
+  if (isWrappedWithHoc) Component = Component.component;
 
   return Component;
 }
