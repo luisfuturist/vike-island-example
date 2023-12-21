@@ -35,7 +35,7 @@ async function renderIslandsToString(
     const factory = factories[hydrationData.componentName];
     if (!factory) return island;
 
-    const Component = await getComponent(factory);
+    let Component = await getComponent(factory);
     if (!Component) return island;
 
     const integration = identifyIntegration(Component, integrations);

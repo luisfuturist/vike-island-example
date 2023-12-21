@@ -1,6 +1,7 @@
 import integrations from "./integrations";
 import {
   ClientDirective,
+  Factory,
   HydrationData,
   Integration,
   IslandOptions,
@@ -99,21 +100,16 @@ export function getTag(options?: IslandOptions) {
   return options?.tag || "div";
 }
 
-export async function getComponent(factory: any) {
-  let Component;
+export function isHydratable(component: any) {
+  return Boolean(component.__hydratable);
+}
 
-  if (typeof factory === "string") {
-    Component = (await import(/* @vite-ignore */ factory)).default;
+export async function getComponent(factory: Factory) {
+  let Component = (await factory()).default;
+
+  if (isHydratable(Component)) {
+    Component = Component.component;
   }
-
-  if (typeof factory === "function") {
-    Component = (await factory()).default;
-  }
-
-  const isWrappedWithHoc =
-    typeof Component === "function" && Component.__island;
-
-  if (isWrappedWithHoc) Component = Component.component;
 
   return Component;
 }
@@ -174,7 +170,7 @@ export function factories(modules: Record<string, any>) {
 
 export function unwrap(wrappedComponent: any) {
   if (!wrappedComponent) return wrappedComponent;
-  return "component" in wrappedComponent
+  return isHydratable(wrappedComponent)
     ? wrappedComponent.component
     : wrappedComponent;
 }

@@ -1,8 +1,10 @@
 import { createCommentVNode, h } from "vue";
 import { ClientDirective, IslandOptions, Props } from "../core/types";
-import { ISLAND_END, ISLAND_START, SCRIPT_TYPE, createIsland } from "../core/utils";
+import { ISLAND_END, ISLAND_START, SCRIPT_TYPE, createIsland, unwrap } from "../core/utils";
 
 function withHydration<P extends Props>(component: any, options?: IslandOptions) {
+  component = unwrap(component);
+
   const hydratable = (props: P & ClientDirective) => {
     const { json, tag, attrs } = createIsland(component, props, options);
 
@@ -16,7 +18,7 @@ function withHydration<P extends Props>(component: any, options?: IslandOptions)
     ]);
   };
   hydratable.component = component;
-  hydratable.__island = true;
+  hydratable.__hydratable = true;
 
   return hydratable;
 }

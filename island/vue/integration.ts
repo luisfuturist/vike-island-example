@@ -1,4 +1,3 @@
-import { withHydration } from ".";
 import { Integration } from "../core/types";
 
 export const vue: Integration = {
@@ -23,9 +22,6 @@ export const vue: Integration = {
     const { createApp } = await import("vue");
     const app = createApp(component, props);
     app.mount(container);
-  },
-  withHydration(component, options) {
-    return withHydration(component, options);
   },
 };
 

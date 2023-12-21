@@ -1,4 +1,4 @@
-export type Factory = string | (() => Promise<{ default: AnyComponent }>);
+export type Factory = (() => Promise<{ default: any }>);
 export type Props = Record<string, unknown>;
 
 export type IslandOptions = {
@@ -76,5 +76,4 @@ export type Integration = {
     container: Element
   ): Promise<void> | void;
   identify(component: any): boolean;
-  withHydration(component: any, options?: IslandOptions): any;
 };

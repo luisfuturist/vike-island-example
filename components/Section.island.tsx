@@ -1,5 +1,5 @@
-import { withHydration } from "~/island/core";
-import Counter from "./Counter.island";
+import { withHydration } from "~/island/react";
+import Counter from "./Counter.island.tsx";
 
 function Section() {
   return (
@@ -9,6 +9,6 @@ function Section() {
       <Counter count={20} />
     </section>
   );
-};
+}
 
 export default withHydration(Section);

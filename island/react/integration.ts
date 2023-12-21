@@ -1,4 +1,3 @@
-import { withHydration } from ".";
 import { Integration } from "../core/types";
 
 const react: Integration = {
@@ -25,9 +24,6 @@ const react: Integration = {
       typeof component === "function" &&
       ("displayName" in component || "name" in component)
     );
-  },
-  withHydration(component, options) {
-    return withHydration(component, options);
   },
 };
 
