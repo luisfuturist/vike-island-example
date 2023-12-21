@@ -30,10 +30,7 @@ export async function hydrateIsland(
 
     const integration = identifyIntegration(component, integrations);
     const hydrate = integration?.hydrate;
-
-    if (!hydrate) {
-      throw new Error("No hydrate or framework provided for the component.");
-    }
+    if (!hydrate) return;
 
     await hydrate(component, props, island);
 
@@ -61,7 +58,7 @@ export async function hydrateIsland(
     },
     idle: async () => {
       idle(async () => await hydrate());
-    }
+    },
   };
 
   const handler = handlers[strategy.name];

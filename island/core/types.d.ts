@@ -76,4 +76,5 @@ export type Integration = {
     container: Element
   ): Promise<void> | void;
   identify(component: any): boolean;
+  withHydration(component: any, options?: IslandOptions): any;
 };

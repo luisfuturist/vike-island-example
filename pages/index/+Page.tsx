@@ -24,12 +24,13 @@ export default () => {
       <main>
         <h1>React page</h1>
 
-        <h2>Not Hydrated</h2>
+        <h2>Not hydrated</h2>
         <Counter count={0} />
 
+        <h2>Hydrated</h2>
         <Counter count={0} client:load />
 
-        <Section client:media="(max-width: 576px)" />
+        <Section client:visible />
 
         <div style={{ marginBottom: "1000px" }}></div>
 

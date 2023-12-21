@@ -105,7 +105,7 @@ export async function getComponent(factory: any) {
   if (typeof factory === "string") {
     Component = (await import(/* @vite-ignore */ factory)).default;
   }
-  
+
   if (typeof factory === "function") {
     Component = (await factory()).default;
   }

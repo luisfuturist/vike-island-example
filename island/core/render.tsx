@@ -10,10 +10,9 @@ async function render(
 ) {
   const integration = identifyIntegration(component, integrations);
   const renderToString = integration?.renderToString;
+  if (!renderToString) return "";
 
-  if (!renderToString) {
-    throw new Error("No renderToString or integration provided for the component framework.");
-  }
+  (globalThis as any).__framework = integration?.name;
 
   let pageHtml = await renderToString(component, props);
   pageHtml = await renderIslandsToString(pageHtml, factories);
