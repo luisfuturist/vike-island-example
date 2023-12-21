@@ -1,7 +1,7 @@
-import ClockReact from "~/components/Clock";
-import CounterReact from "~/components/Counter";
-import Section from "~/components/Section.react";
-import VGreenCounterVue from "~/components/VGreenCounter.vue";
+import ClockReact from "~/components/Clock.island";
+import CounterReact from "~/components/Counter.island";
+import Section from "~/components/Section.island";
+import VGreenCounterVue from "~/components/VGreenCounter.island.vue";
 import { withHydration } from "~/island/react";
 
 const Counter = withHydration(CounterReact);

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import VGreenCounter from "~/components/VGreenCounter.vue";
+import VGreenCounterVue from "~/components/VGreenCounter.island.vue";
 import { withHydration } from "~/island/vue";
-import RClock from "~/components/Clock";
+import RClock from "~/components/Clock.island.tsx";
 
-const GreenCounter = withHydration(VGreenCounter);
+const GreenCounter = withHydration(VGreenCounterVue);
 const Clock = withHydration(RClock);
 </script>
 <template>

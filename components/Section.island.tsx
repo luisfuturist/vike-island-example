@@ -1,5 +1,5 @@
 import { withHydration } from "~/island/core";
-import Counter from "./Counter";
+import Counter from "./Counter.island";
 
 function Section() {
   return (

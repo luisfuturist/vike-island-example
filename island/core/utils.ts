@@ -127,7 +127,8 @@ export function getHydrationData(
 
   const hydrationData: HydrationData = {
     strategy: getStrategyFromProps(props),
-    componentName: integration.getComponentName(component),
+    componentName: integration
+      .getComponentName(component)?.replace(/\.island+$/, ""),
     props: getPropsWithoutDirectives(props),
     framework: integration.name,
   };
@@ -152,4 +153,28 @@ export function createIsland(
     attrs,
     json: JSON.stringify(hydrationData),
   };
+}
+
+export function factories(modules: Record<string, any>) {
+  const transformedModules: Record<string, any> = {};
+
+  for (const key in modules) {
+    if (Object.prototype.hasOwnProperty.call(modules, key)) {
+      const fileName = key
+        ?.split("/")
+        ?.pop()
+        ?.replace(/\.island.[^/.]+$/, "");
+      if (!fileName) continue;
+      transformedModules[fileName] = modules[key];
+    }
+  }
+
+  return transformedModules;
+}
+
+export function unwrap(wrappedComponent: any) {
+  if (!wrappedComponent) return wrappedComponent;
+  return "component" in wrappedComponent
+    ? wrappedComponent.component
+    : wrappedComponent;
 }
