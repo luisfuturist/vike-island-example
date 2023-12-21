@@ -2,6 +2,11 @@
 import VGreenCounterVue from "~/components/VGreenCounter.island.vue";
 import { withHydration } from "~/island/vue";
 import RClock from "~/components/Clock.island.tsx";
+import { $pageContext } from "~/renderer/pageContext";
+import { useStore } from "@nanostores/vue";
+
+const pageContext = useStore($pageContext);
+console.log(pageContext.value.urlPathname);
 
 const GreenCounter = withHydration(VGreenCounterVue);
 const Clock = withHydration(RClock);

@@ -8,6 +8,12 @@ dependencies:
   '@cloudflare/kv-asset-handler':
     specifier: ^0.3.0
     version: 0.3.0
+  '@nanostores/react':
+    specifier: ^0.7.1
+    version: 0.7.1(nanostores@0.9.5)(react@18.2.0)
+  '@nanostores/vue':
+    specifier: ^0.10.0
+    version: 0.10.0(nanostores@0.9.5)(vue@3.3.11)
   '@types/compression':
     specifier: ^1.7.5
     version: 1.7.5
@@ -53,6 +59,9 @@ dependencies:
   express:
     specifier: ^4.18.2
     version: 4.18.2
+  nanostores:
+    specifier: ^0.9.5
+    version: 0.9.5
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -865,6 +874,35 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
+    dev: false
+
+  /@nanostores/react@0.7.1(nanostores@0.9.5)(react@18.2.0):
+    resolution: {integrity: sha512-EXQg9N4MdI4eJQz/AZLIx3hxQ6BuBmV4Q55bCd5YCSgEOAW7tGTsIZxpRXxvxLXzflNvHTBvfrDNY38TlSVBkQ==}
+    engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
+    peerDependencies:
+      nanostores: ^0.9.0
+      react: '>=18.0.0'
+    dependencies:
+      nanostores: 0.9.5
+      react: 18.2.0
+    dev: false
+
+  /@nanostores/vue@0.10.0(nanostores@0.9.5)(vue@3.3.11):
+    resolution: {integrity: sha512-832RAUbzRfHPs1CdqVEwfvgB2+RD/INji4Zo8bUSEfRO2pQRMMeq479gydnohGpRaa0oNwlfKo7TGFXCghq/1g==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    peerDependencies:
+      '@nanostores/logger': '>=0.2.3'
+      '@vue/devtools-api': '>=6.5.0'
+      nanostores: '>=0.9.2'
+      vue: '>=3.3.1'
+    peerDependenciesMeta:
+      '@nanostores/logger':
+        optional: true
+      '@vue/devtools-api':
+        optional: true
+    dependencies:
+      nanostores: 0.9.5
+      vue: 3.3.11(typescript@5.3.3)
     dev: false
 
   /@nodelib/fs.scandir@2.1.5:
@@ -2837,6 +2875,11 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  /nanostores@0.9.5:
+    resolution: {integrity: sha512-Z+p+g8E7yzaWwOe5gEUB2Ox0rCEeXWYIZWmYvw/ajNYX8DlXdMvMDj8DWfM/subqPAcsf8l8Td4iAwO1DeIIRQ==}
+    engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
+    dev: false
 
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}

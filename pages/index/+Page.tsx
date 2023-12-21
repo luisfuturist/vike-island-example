@@ -3,12 +3,17 @@ import CounterReact from "~/components/Counter.island";
 import Section from "~/components/Section.island";
 import VGreenCounterVue from "~/components/VGreenCounter.island.vue";
 import { withHydration } from "~/island/react";
+import { $pageContext } from "~/renderer/pageContext";
+import { useStore } from "@nanostores/react";
 
 const Counter = withHydration(CounterReact);
 const Clock = withHydration(ClockReact);
 const GreenCounter = withHydration(VGreenCounterVue);
 
 export default () => {
+  const pageContext = useStore($pageContext);
+  console.log(pageContext.urlPathname);
+
   return (
     <div>
       <header>

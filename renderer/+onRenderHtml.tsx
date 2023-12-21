@@ -3,10 +3,13 @@ import type { OnRenderHtmlAsync } from "vike/types";
 import logoUrl from "./logo.svg";
 import { render } from "~/island/core";
 import "./style.css";
+import { $pageContext } from "./pageContext";
 
 const onRenderHtml: OnRenderHtmlAsync = async (
   pageContext
 ): ReturnType<OnRenderHtmlAsync> => {
+  $pageContext.set(pageContext);
+
   const { factories } = pageContext.config;
 
   if (!factories) {
