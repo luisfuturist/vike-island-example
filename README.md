@@ -1,6 +1,14 @@
 # vike-island-example
 
-This repository serves as an illustrative example that explores the Islands Architecture on Vike.
+This repository serves as an illustrative example that explores the
+[Islands Architecture](https://jasonformat.com/islands-architecture/) on [Vike](https://vike.dev).
+
+> The general idea of an “Islands” architecture is deceptively simple: render HTML pages on the server, and inject
+> placeholders or slots around highly dynamic regions. These placeholders/slots contain the server-rendered HTML output
+> from their corresponding widget. They denote regions that can then be "hydrated" on the client into small
+> self-contained widgets, reusing their server-rendered initial HTML.
+>
+> — Jason Miller, Creator of Preact
 
 ## Features
 
@@ -68,3 +76,8 @@ The technical implementation of the islands architecture involves basically seve
 ## Contributions
 
 Contributions, suggestions, and feedback are welcomed and encouraged. Feel free to explore the source code and propose enhancements or report issues through the repository.
+
+## See also
+
+- [Jason Miller's Blog > Islands Architecture](https://jasonformat.com/islands-architecture/)
+- [Astro > Concepts > Islands](https://docs.astro.build/en/concepts/islands/)
